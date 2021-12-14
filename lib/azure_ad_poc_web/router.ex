@@ -20,6 +20,12 @@ defmodule AzureAdPocWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/", AzureAdPocWeb do
+    pipe_through :browser
+
+    get "/protected", PageController, :protected
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", AzureAdPocWeb do
   #   pipe_through :api
