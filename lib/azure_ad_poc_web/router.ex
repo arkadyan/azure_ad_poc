@@ -14,6 +14,13 @@ defmodule AzureAdPocWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/auth", MyApp do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
+  end
+
   scope "/", AzureAdPocWeb do
     pipe_through :browser
 

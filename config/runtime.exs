@@ -12,6 +12,10 @@ if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
   config :azure_ad_poc, AzureAdPocWeb.Endpoint, server: true
 end
 
+config :ueberauth, Ueberauth.Strategy.Microsoft.OAuth,
+  client_id: System.get_env("MICROSOFT_CLIENT_ID"),
+  client_secret: System.get_env("MICROSOFT_CLIENT_SECRET")
+
 if config_env() == :prod do
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
