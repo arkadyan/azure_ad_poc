@@ -32,3 +32,4 @@ azure_ad_poc-*.tar
 npm-debug.log
 /assets/node_modules/
 
+.env
