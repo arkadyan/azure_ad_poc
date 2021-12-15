@@ -14,21 +14,27 @@ defmodule AzureAdPocWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/auth", MyApp do
+  pipeline :ensure_logged_in do
+    plug AzureAdPocWeb.Plugs.EnsureLoggedIn
+  end
+
+  scope "/auth", AzureAdPocWeb do
     pipe_through :browser
 
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
   end
 
+  # Public
   scope "/", AzureAdPocWeb do
     pipe_through :browser
 
     get "/", PageController, :index
   end
 
+  # Protected
   scope "/", AzureAdPocWeb do
-    pipe_through :browser
+    pipe_through [:browser, :ensure_logged_in]
 
     get "/protected", PageController, :protected
   end
